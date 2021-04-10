@@ -6,9 +6,9 @@
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-![angular version](https://img.shields.io/github/package-json/dependency-version/miaborde/ng-new/@angular/core?label=angular&logo=angular)
+![angular version](https://img.shields.io/github/package-json/dependency-version/miaborde/katlama/@angular/core?label=angular&logo=angular)
 
-[demo (en-US)](https://miaborde.github.io/ng-new/en-US) - [demo (fr)](https://miaborde.github.io/ng-new/fr) - [changelog](./CHANGELOG.md)
+[demo (en-US)](https://miaborde.github.io/katlama/en-US) - [demo (fr)](https://miaborde.github.io/katlama/fr) - [changelog](./CHANGELOG.md)
 
 </div>
 
@@ -47,8 +47,8 @@ You can run this project in production mode in container, to do so you just need
 
 ```bash
 # with docker only
-docker build -t ng-new .
-docker run -d -p 80:80 -p 443:443 --name ng-new ng-new
+docker build -t katlama .
+docker run -d -p 80:80 -p 443:443 --name katlama katlama
 
 # if you have Docker AND Node.js installed you can use short commands :
 npm run docker:build:prod
@@ -154,7 +154,7 @@ npm run analyze
 - Clone this project and move into it
 - Reset git history : `rm -rf .git && git init`
 - Run `npm ci` after reset git history (important for pre-commit hooks)
-- Replace ALL `ng-new` occurrence with your project name
+- Replace ALL `katlama` occurrence with your project name
 - Replace ALL `miaborde` occurrence with your Github username
 - Replace ALL `Angular progressive web app starter.` occurrence with your project description
 - Change icons in **assets** folder, You can generate yours with [pwa-asset-generator](https://www.npmjs.com/package/pwa-asset-generator)

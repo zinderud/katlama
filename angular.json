@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-new": {
+    "katlama": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -27,7 +27,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-new",
+            "outputPath": "dist/katlama",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -84,21 +84,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-new:build:en-US"
+            "browserTarget": "katlama:build:en-US"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-new:build:production"
+              "browserTarget": "katlama:build:production"
             },
             "fr": {
-              "browserTarget": "ng-new:build:fr"
+              "browserTarget": "katlama:build:fr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-new:build"
+            "browserTarget": "katlama:build"
           }
         },
         "test": {
@@ -132,16 +132,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-new:serve"
+            "devServerTarget": "katlama:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-new:serve:production"
+              "devServerTarget": "katlama:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-new"
+  "defaultProject": "katlama"
 }

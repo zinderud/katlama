@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build:prod
 
 FROM nginx:1.18.0-alpine
-COPY --from=build /app/dist/ng-new /usr/share/nginx/html
+COPY --from=build /app/dist/katlama /usr/share/nginx/html
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/localhost.crt /etc/nginx/localhost.crt
 COPY docker/localhost.key /etc/nginx/localhost.key
