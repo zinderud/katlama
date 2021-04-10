@@ -1,0 +1,171 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/resources/color
+$palette-light-primary: mat-palette($mat-grey, 200, 100, 900);
+$palette-light-accent: mat-palette($mat-light-blue, 800, 100, 900);
+$palette-light-warn: mat-palette($mat-red, 700, 100, 900);
+
+$palette-dark-primary: mat-palette($mat-grey, 900, 400, 900);
+$palette-dark-accent: mat-palette($mat-light-blue, 300, 100, 400);
+$palette-dark-warn: mat-palette($mat-red, 400, 100, 400);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$theme-light: mat-light-theme(
+  (
+    color: (
+      primary: $palette-light-primary,
+      accent: $palette-light-accent,
+      warn: $palette-light-warn,
+    ),
+  )
+);
+$foreground-light: map-get($theme-light, foreground);
+
+$theme-dark: mat-dark-theme(
+  (
+    color: (
+      primary: $palette-dark-primary,
+      accent: $palette-dark-accent,
+      warn: $palette-dark-warn,
+    ),
+  )
+);
+$foreground-dark: map-get($theme-dark, foreground);
+
+// Use color palettes from your template
+@mixin class-theme($palette, $shade) {
+  $background: mat-color($palette, $shade);
+  $color: mat-color($palette, #{$shade}-contrast);
+
+  background: $background;
+  color: $color;
+
+  &.transparent {
+    background: rgba($background, 0.1);
+    color: unset;
+  }
+
+  &.active {
+    background: rgba($color, 0.1);
+    color: unset;
+  }
+}
+
+@mixin class-theme-color($palette, $shade) {
+  $color: mat-color($palette, $shade);
+
+  color: $color;
+}
+
+@mixin class-builder(
+  $palette-primary,
+  $palette-accent,
+  $palette-warn,
+  $foreground
+) {
+  .theme-primary {
+    @include class-theme($palette-primary, default);
+  }
+
+  .theme-primary-color {
+    @include class-theme-color($palette-primary, default);
+  }
+
+  .theme-primary-darker {
+    @include class-theme($palette-primary, darker);
+  }
+
+  .theme-primary-color-darker {
+    @include class-theme-color($palette-primary, darker);
+  }
+
+  .theme-primary-lighter {
+    @include class-theme($palette-primary, lighter);
+  }
+
+  .theme-primary-color-lighter {
+    @include class-theme-color($palette-primary, lighter);
+  }
+
+  .theme-accent {
+    @include class-theme($palette-accent, default);
+  }
+
+  .theme-accent-color {
+    @include class-theme-color($palette-accent, default);
+  }
+
+  .theme-accent-darker {
+    @include class-theme($palette-accent, darker);
+  }
+
+  .theme-accent-color-darker {
+    @include class-theme-color($palette-accent, darker);
+  }
+
+  .theme-accent-lighter {
+    @include class-theme($palette-accent, lighter);
+  }
+
+  .theme-accent-color-lighter {
+    @include class-theme-color($palette-accent, lighter);
+  }
+
+  .theme-warn {
+    @include class-theme($palette-warn, default);
+  }
+
+  .theme-warn-color {
+    @include class-theme-color($palette-warn, default);
+  }
+
+  .theme-warn-darker {
+    @include class-theme($palette-warn, darker);
+  }
+
+  .theme-warn-color-darker {
+    @include class-theme-color($palette-warn, darker);
+  }
+
+  .theme-warn-lighter {
+    @include class-theme($palette-warn, lighter);
+  }
+
+  .theme-warn-color-lighter {
+    @include class-theme-color($palette-warn, lighter);
+  }
+
+  .theme-foreground-secondary-color {
+    @include class-theme-color($foreground, secondary-text);
+  }
+}
+
+// body themes, light by default
+@include angular-material-theme($theme-light);
+@include class-builder(
+  $palette-light-primary,
+  $palette-light-accent,
+  $palette-light-warn,
+  $foreground-light
+);
+
+.theme-dark {
+  @include angular-material-color($theme-dark);
+  @include class-builder(
+    $palette-dark-primary,
+    $palette-dark-accent,
+    $palette-dark-warn,
+    $foreground-dark
+  );
+}

@@ -1,0 +1,181 @@
+{
+  "extends": [
+    "tslint:all",
+    "tslint-etc",
+    "rxjs-tslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rulesDirectory": ["codelyzer"],
+  "rules": {
+    "component-class-suffix": true,
+    "component-max-inline-declarations": true,
+    "component-selector": [true, "element", "app", "kebab-case"],
+    "contextual-decorator": true,
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
+    "directive-selector": [true, "attribute", "app", "camelCase"],
+    "import-destructuring-spacing": true,
+    "no-attribute-decorator": true,
+    "no-forward-ref": true,
+    "no-host-metadata-property": true,
+    "no-input-prefix": true,
+    "no-input-rename": true,
+    "no-inputs-metadata-property": true,
+    "no-lifecycle-call": true,
+    "no-output-native": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-outputs-metadata-property": true,
+    "no-pipe-impure": true,
+    "no-queries-metadata-property": true,
+    "prefer-inline-decorator": true,
+    "prefer-output-readonly": true,
+    "template-banana-in-box": true,
+    "no-conflicting-lifecycle": true,
+    "cyclomatic-complexity": [true, 7],
+    "template-no-call-expression": true,
+    "template-no-negated-async": true,
+    "template-use-track-by-function": true,
+    "use-component-selector": true,
+    "use-component-view-encapsulation": true,
+    "use-lifecycle-interface": true,
+    "use-pipe-decorator": true,
+    "use-pipe-transform-interface": true,
+    "no-unused-variable": false,
+    "align": {
+      "options": ["parameters", "statements"]
+    },
+    "array-type": [true, "array"],
+    "arrow-return-shorthand": true,
+    "deprecation": {
+      "severity": "warn"
+    },
+    "import-blacklist": [true, "rxjs/Rx"],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "no-console": [true, "log"],
+    "no-empty": false,
+    "no-inferrable-types": [true, "ignore-params"],
+    "no-var-requires": false,
+    "object-literal-key-quotes": [true, "as-needed"],
+    "space-before-function-paren": {
+      "options": {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "constructor": "never",
+        "method": "never",
+        "named": "never"
+      }
+    },
+    "typedef": [true, "call-signature"],
+    "variable-name": {
+      "options": ["ban-keywords", "check-format", "allow-pascal-case"]
+    },
+    "whitespace": {
+      "options": [
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-separator",
+        "check-type",
+        "check-typecast"
+      ]
+    },
+    "file-name-casing": [true, "kebab-case"],
+    "no-implicit-dependencies": false,
+    "no-import-side-effect": [
+      true,
+      {
+        "ignore-module": "(hammerjs|core-js|zone.js|@angular/localize/init)"
+      }
+    ],
+    "comment-format": [true, "check-space"],
+    "newline-per-chained-call": false,
+    "no-object-literal-type-assertion": [
+      true,
+      {
+        "allow-arguments": true
+      }
+    ],
+    "no-floating-promises": false,
+    "completed-docs": false,
+    "prefer-function-over-method": false,
+    "no-submodule-imports": false,
+    "no-parameter-properties": false,
+    "max-line-length": false,
+    "increment-decrement": [true, "allow-post"],
+    "no-magic-numbers": false,
+    "interface-name": [true, "never-prefix"],
+    "member-access": [true, "no-public"],
+    "no-invalid-this": [true, "check-function-in-method"],
+    "invalid-void": [
+      true,
+      {
+        "allow-generics": ["EventEmitter", "Promise", "Observable"]
+      }
+    ],
+    "no-async-without-await": false,
+    "promise-function-async": false,
+    "no-void-expression": [true, "ignore-arrow-function-shorthand"],
+    "no-unnecessary-class": [
+      true,
+      "allow-constructor-only",
+      "allow-static-only",
+      "allow-empty-class"
+    ],
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "object-literal-sort-keys": false,
+    "no-unused-declaration": true,
+    "no-const-enum": true,
+    "no-assign-mutated-array": true,
+    "throw-error": true,
+    "rxjs-no-async-subscribe": true,
+    "rxjs-no-compat": true,
+    "rxjs-no-connectable": true,
+    "rxjs-no-create": true,
+    "rxjs-no-explicit-generics": true,
+    "rxjs-no-ignored-notifier": true,
+    "rxjs-no-ignored-replay-buffer": true,
+    "rxjs-no-ignored-observable": true,
+    "rxjs-no-ignored-subscription": true,
+    "rxjs-no-ignored-takewhile-value": true,
+    "rxjs-no-implicit-any-catch": true,
+    "rxjs-no-index": true,
+    "rxjs-no-internal": true,
+    "rxjs-no-nested-subscribe": true,
+    "rxjs-no-sharereplay": {
+      "options": [
+        {
+          "allowConfig": true
+        }
+      ]
+    },
+    "rxjs-no-subclass": true,
+    "rxjs-no-subject-unsubscribe": true,
+    "rxjs-no-subject-value": true,
+    "rxjs-no-unbound-methods": true,
+    "rxjs-no-unsafe-catch": true,
+    "rxjs-no-unsafe-first": true,
+    "rxjs-no-unsafe-subject-next": true,
+    "rxjs-no-unsafe-switchmap": true,
+    "rxjs-no-unsafe-takeuntil": true,
+    "rxjs-throw-error": true,
+    "rxjs-finnish": true,
+    "rxjs-prefer-angular-takeuntil": {
+      "options": [
+        {
+          "checkDestroy": true
+        }
+      ]
+    }
+  }
+}

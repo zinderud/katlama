@@ -1,0 +1,19 @@
+.mat-raised-button,
+.mat-stroked-button,
+.mat-button {
+  &.rounded {
+    border-radius: 20px;
+  }
+}
+
+.icon-before {
+  mat-icon {
+    padding: 0 5px 0 0;
+  }
+}
+
+.icon-after {
+  mat-icon {
+    padding: 0 0 0 5px;
+  }
+}

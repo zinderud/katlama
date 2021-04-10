@@ -1,0 +1,26 @@
+$breakpoint: 768px;
+
+@mixin media($device) {
+  @if $device==small {
+    @media only screen and (max-width: $breakpoint - 1) {
+      @content;
+    }
+  }
+  @if $device==large {
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+.media-hide-on-small {
+  @include media(small) {
+    display: none;
+  }
+}
+
+.media-hide-on-large {
+  @include media(large) {
+    display: none;
+  }
+}

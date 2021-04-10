@@ -1,0 +1,40 @@
+<mat-sidenav-container hasBackdrop="true" fullscreen>
+  <mat-sidenav #sidenav mode="over" position="start">
+    <app-layout-sidenav
+      [destinations]="destinations"
+      [user]="user"
+      [sidenav]="sidenav"
+    ></app-layout-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="layout">
+    <nav *ngIf="user || isUnknownUserAllowedToNavigate">
+      <app-layout-nav
+        [user]="user"
+        [appTitle]="appTitle"
+        [destinations]="destinations"
+        [sidenav]="sidenav"
+      ></app-layout-nav>
+    </nav>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer *ngIf="user || isUnknownUserAllowedToNavigate">
+      <app-layout-footer
+        [appDescription]="appDescription"
+        [appVersion]="appVersion"
+      ></app-layout-footer>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div hidden>
+  <h1 #appTitleElement i18n="@@app-title">ng-start</h1>
+  <h2 #appDescriptionElement i18n="@@app-description">
+    Angular progressive web app starter.
+  </h2>
+  <div i18n="@@home">Home</div>
+  <div i18n="@@articles">Articles</div>
+</div>

@@ -1,0 +1,100 @@
+<button
+  mat-raised-button
+  class="round m-x-10 mat-elevation-z1"
+  [class]="user ? '' : 'theme-accent'"
+  [matMenuTriggerFor]="layoutSettingsMenu"
+  matTooltip="Trigger user settings menu"
+  i18n-matTooltip
+  aria-label="Button that displays a tooltip when focused or hovered over"
+  i18n-aria-label="@@button-with-tooltip"
+>
+  <img
+    *ngIf="user"
+    src="{{ user!.avatar }}"
+    default="profile"
+    i18n-alt="@@your-avatar"
+    alt="Your avatar"
+    height="33"
+    width="33"
+  />
+  <mat-icon *ngIf="!user">person</mat-icon>
+</button>
+
+<mat-menu #layoutSettingsMenu="matMenu" xPosition="before">
+  <ng-template matMenuContent>
+    <div *ngIf="user" class="centred p-10 theme-primary">
+      <button
+        mat-menu-item
+        class="round large m-x-20"
+        matTooltip="Click here to set a new image"
+        i18n-matTooltip
+        matTooltipPosition="above"
+        (click)="$event.stopPropagation(); file.click()"
+      >
+        <img
+          src="{{ user.avatar }}"
+          default="profile"
+          i18n-alt="@@your-avatar"
+          alt="Your avatar"
+        />
+        <input
+          #file
+          type="file"
+          accept="image/*"
+          (change)="onImportImage($event)"
+        />
+      </button>
+
+      <div class="mat-h2 m-0">{{ user.username }}</div>
+      <div class="mat-small theme-foreground-secondary-color">
+        {{ user.email }}
+      </div>
+    </div>
+    <ng-container *ngIf="!user">
+      <a mat-menu-item routerLink="/auth">
+        <mat-icon>person</mat-icon>
+        <span i18n="@@sign-in">Sign in</span>
+      </a>
+      <mat-divider></mat-divider>
+    </ng-container>
+    <ng-container *ngIf="user">
+      <button mat-menu-item (click)="onOpenDialog(dialogTemplate)">
+        <mat-icon>exit_to_app</mat-icon>
+        <span i18n="@@sign-out">Sign out</span>
+      </button>
+      <mat-divider></mat-divider>
+    </ng-container>
+    <button mat-menu-item (click)="onToggleDarkTheme()">
+      <ng-container *ngIf="isDarkThemeToggled; else darkThemeTemplate">
+        <mat-icon>wb_sunny</mat-icon>
+        <span i18n="@@light-theme">Light theme</span>
+      </ng-container>
+      <ng-template #darkThemeTemplate>
+        <mat-icon>nights_stay</mat-icon>
+        <span i18n="@@dark-theme">Dark theme</span>
+      </ng-template>
+    </button>
+    <a mat-menu-item href="../{{ localeId === 'fr' ? 'en-US' : 'fr' }}/">
+      <mat-icon>translate</mat-icon>
+      <span>{{ localeId === 'fr' ? 'English' : 'Français' }}</span>
+    </a>
+  </ng-template>
+</mat-menu>
+
+<ng-template #dialogTemplate>
+  <h2 matDialogTitle i18n="@@are-you-sure">Are you sure ?</h2>
+  <mat-dialog-content>
+    <p i18n>
+      If you sign out you will have to enter your credentials again to use
+      application !
+    </p>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCloseDialog()" i18n="@@cancel">
+      Cancel
+    </button>
+    <button mat-button (click)="onSignout(); onCloseDialog()" i18n="@@sign-out">
+      Sign out
+    </button>
+  </div>
+</ng-template>

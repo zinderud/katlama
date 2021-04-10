@@ -1,0 +1,32 @@
+<section class="layout-sidenav">
+  <mat-nav-list class="m-0 p-0">
+    <div class="theme-primary p-15">
+      <ng-container *ngIf="user">
+        <img
+          src="{{ user?.avatar }}"
+          default="profile"
+          i18n-alt="@@your-avatar"
+          alt="Your avatar"
+          class="layout-sidenav-avatar"
+          height="100"
+          width="100"
+        />
+
+        <div class="mat-h2 m-0">{{ user?.username }}</div>
+        <div class="mat-small theme-foreground-secondary-color">
+          {{ user?.email }}
+        </div>
+      </ng-container>
+    </div>
+    <a
+      *ngFor="let destination of destinations; trackBy: trackByIndex"
+      mat-menu-item
+      routerLinkActive="theme-accent transparent"
+      [routerLink]="destination.path"
+      (click)="sidenav.close()"
+    >
+      <mat-icon mat-list-icon>{{ destination.icon }}</mat-icon>
+      <span>{{ destination.name }}</span>
+    </a>
+  </mat-nav-list>
+</section>

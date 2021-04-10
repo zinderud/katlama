@@ -1,0 +1,25 @@
+@import 'styles/anime';
+@import 'styles/media';
+@import 'styles/override';
+@import 'styles/reset';
+@import 'styles/spacing';
+@import 'styles/theme';
+
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 16px;
+  width: 90%;
+}
+
+.centred {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
