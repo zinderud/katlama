@@ -1,28 +1,32 @@
 <section class="centred anime-zoom-in">
   <mat-card
-    class="p-0 auth-card"
+    class="p-0 card-alone"
     [ngClass]="{ 'anime-wobble': !!errorMessage }"
   >
     <mat-tab-group mat-stretch-tabs animationDuration="0ms" color="accent">
-      <mat-tab i18n-label="@@signin" label="Sign in">
+      <mat-tab i18n-label label="Log in">
         <ng-template matTabContent>
-          <mat-card-content class="p-20">
-            <app-signin-form
+          <mat-card-content class="m-0 p-16">
+            <app-login-form
               (errorHappens)="onErrorHappens($event)"
-            ></app-signin-form>
+            ></app-login-form>
           </mat-card-content>
         </ng-template>
       </mat-tab>
 
-      <mat-tab i18n-label="@@signup" label="Sign up">
+      <mat-tab i18n-label label="Register">
         <ng-template matTabContent>
-          <mat-card-content class="p-20">
-            <app-signup-form
+          <mat-card-content class="m-0 p-16">
+            <app-register-form
               (errorHappens)="onErrorHappens($event)"
-            ></app-signup-form>
+            ></app-register-form>
           </mat-card-content>
         </ng-template>
       </mat-tab>
     </mat-tab-group>
   </mat-card>
+
+  <p *ngIf="isUsableWithoutApi" style="margin: 10px;"
+    ><b>Test:</b> {{ mockUser?.email }} / {{ mockUser?.password }}</p
+  >
 </section>

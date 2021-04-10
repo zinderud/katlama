@@ -9,16 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { finalize, switchMap, takeUntil } from 'rxjs/operators';
-import { User, UserService } from 'src/app/core/user.service';
 
+import { Account } from '../../core/models/user.model';
+import { UserService } from '../../core/services/user.service';
+import { AuthError } from '../auth.model';
 import { AuthService } from '../auth.service';
 import { ConfirmEmailDialogComponent } from '../confirm-email-dialog/confirm-email-dialog.component';
-
-type EmailConfirmTemplate =
-  | 'emailConfirmed'
-  | 'emailNotConfirmed'
-  | 'emailConfirmError'
-  | 'loading';
 
 @Component({
   selector: 'app-confirm-email',
@@ -29,9 +25,9 @@ type EmailConfirmTemplate =
 export class ConfirmEmailComponent implements OnInit, OnDestroy {
   isLoading = false;
   isProcessing = false;
-  template: EmailConfirmTemplate = 'loading';
+  isAccountAlreadyConfirmed = false;
   token: string | undefined = undefined;
-  user: User | undefined = undefined;
+  account: Account | undefined = undefined;
   private readonly isDestroyed$ = new Subject<boolean>();
 
   constructor(
@@ -40,59 +36,72 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
     private readonly authService: AuthService,
     private readonly userService: UserService,
     private readonly dialog: MatDialog,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
-  async ngOnInit(): Promise<Subscription | undefined> {
-    this.token =
-      this.activatedRoute.snapshot.paramMap.get('token') ?? undefined;
+  ngOnInit(): void {
+    this.userService.account$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((account) => {
+        this.isAccountAlreadyConfirmed = account?.isConfirmed ?? false;
 
-    return this.token === undefined ? undefined : this.verifyToken(this.token);
+        this.token =
+          this.activatedRoute.snapshot.paramMap.get('token') ?? undefined;
+
+        return this.token === undefined
+          ? undefined
+          : this.verifyToken(this.token);
+      })
+      .unsubscribe();
   }
 
   ngOnDestroy(): void {
-    console.info(`💥 destroy: ${this.constructor.name}`);
     this.isDestroyed$.next(true);
     this.isDestroyed$.complete();
   }
 
-  onRequestConfirmEmailToken(): Subscription {
+  onRequestConfirmEmail(): Subscription {
     this.isProcessing = true;
 
-    return this.userService.user$
+    return this.userService.account$
       .pipe(
-        switchMap((user) =>
-          this.authService.requestConfirmEmailToken$(user as User)
+        switchMap((account) =>
+          this.authService.resendConfirmationEmail$(
+            (account as Account)?.email,
+          ),
         ),
-        takeUntil(this.isDestroyed$)
+        switchMap((res) =>
+          this.dialog.open(ConfirmEmailDialogComponent).afterClosed(),
+        ),
+        takeUntil(this.isDestroyed$),
       )
-      .subscribe({
-        next: async () => {
-          const dialog = this.dialog.open(ConfirmEmailDialogComponent);
-          await dialog.afterClosed().toPromise();
-          this.router.navigate(['/']);
-        },
-      });
+      .subscribe((afterClosed) => this.router.navigate(['/']));
   }
 
   private verifyToken(token: string): Subscription {
+    this.isAccountAlreadyConfirmed = false;
     this.isLoading = true;
 
     return this.authService
-      .verifyConfirmEmailToken$({ token })
+      .confirmEmail$(token)
       .pipe(
         finalize(() => {
           this.isLoading = false;
           this.changeDetectorRef.detectChanges();
         }),
-        takeUntil(this.isDestroyed$)
+        takeUntil(this.isDestroyed$),
       )
-      .subscribe({
-        next: (res) => {
-          this.user = res.user;
+      .subscribe(
+        (loggedInUser) => {
+          this.account = loggedInUser.account;
           this.changeDetectorRef.detectChanges();
         },
-        error: (err: Error) => {},
-      });
+        (err) => {
+          if ((err as Error)?.message === AuthError.EmailConfirmed) {
+            this.isAccountAlreadyConfirmed = true;
+            this.changeDetectorRef.detectChanges();
+          }
+        },
+      );
   }
 }

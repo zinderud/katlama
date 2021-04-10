@@ -2,15 +2,15 @@
   <mat-sidenav #sidenav mode="over" position="start">
     <app-layout-sidenav
       [destinations]="destinations"
-      [user]="user"
+      [account]="account"
       [sidenav]="sidenav"
     ></app-layout-sidenav>
   </mat-sidenav>
 
   <mat-sidenav-content class="layout">
-    <nav *ngIf="user || isUnknownUserAllowedToNavigate">
+    <nav *ngIf="account || isUnknownUserAllowedToNavigate">
       <app-layout-nav
-        [user]="user"
+        [account]="account"
         [appTitle]="appTitle"
         [destinations]="destinations"
         [sidenav]="sidenav"
@@ -21,7 +21,7 @@
       <router-outlet></router-outlet>
     </main>
 
-    <footer *ngIf="user || isUnknownUserAllowedToNavigate">
+    <footer *ngIf="account || isUnknownUserAllowedToNavigate">
       <app-layout-footer
         [appDescription]="appDescription"
         [appVersion]="appVersion"
@@ -31,10 +31,10 @@
 </mat-sidenav-container>
 
 <div hidden>
-  <h1 #appTitleElement i18n="@@app-title">ng-start</h1>
-  <h2 #appDescriptionElement i18n="@@app-description">
-    Angular progressive web app starter.
-  </h2>
+  <h1 #appTitleElement>Ng-new</h1>
+  <h2 #appDescriptionElement i18n="@@app-description"
+    >Angular progressive web app starter.</h2
+  >
   <div i18n="@@home">Home</div>
   <div i18n="@@articles">Articles</div>
 </div>

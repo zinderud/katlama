@@ -13,9 +13,10 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { SnackbarService } from 'src/app/core/snackbar.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
+import { SnackbarService } from '../../core/services/snackbar.service';
+import { AuthError } from '../auth.model';
 import { AuthService } from '../auth.service';
 import { ForgotPasswordDialogComponent } from '../forgot-password-dialog/forgot-password-dialog.component';
 
@@ -41,7 +42,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly snackbarService: SnackbarService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
   ) {
     this.formGroup = this.createFormGroup('change');
   }
@@ -49,7 +50,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    console.info(`💥 destroy: ${this.constructor.name}`);
     this.isDestroyed$.next(true);
     this.isDestroyed$.complete();
   }
@@ -59,52 +59,40 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.formGroup.disable();
 
     return this.authService
-      .requestResetPasswordToken$({
-        email: this.f.email?.value as string,
-      })
-      .pipe(takeUntil(this.isDestroyed$))
-      .subscribe({
-        next: async () => {
-          const dialog = this.dialog.open(ForgotPasswordDialogComponent);
-          await dialog.afterClosed().toPromise();
-          this.router.navigate(['/auth']);
-        },
-        error: (err: Error) => {
-          this.errorMessage = err.message;
+      .forgotPassword$(this.f.email?.value as string)
+      .pipe(
+        switchMap((res) =>
+          this.dialog.open(ForgotPasswordDialogComponent).afterClosed(),
+        ),
+        takeUntil(this.isDestroyed$),
+      )
+      .subscribe(
+        (afterClosed) => this.router.navigate(['/auth']),
+        (err) => {
+          this.errorMessage = (err as Error)?.message;
           this.isLoading = false;
           this.formGroup.enable();
         },
-      });
+      );
   }
 
-  private createFormGroup(
-    updateOn: 'submit' | 'change',
-    previousValue?: { [key: string]: unknown }
-  ): FormGroup {
+  private createFormGroup(updateOn: 'submit' | 'change'): FormGroup {
+    // tslint:disable
     return this.formBuilder.group(
-      // tslint:disable
       {
-        email: [
-          null,
-          [
-            Validators.required,
-            Validators.pattern(
-              /^(?=.{4,64}$)[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
-            ),
-          ],
-        ],
+        email: [null, [Validators.required, Validators.email]],
       },
       {
         updateOn,
         validators: this.mustNotBeRejectedValidator(),
-      }
+      },
       // tslint:enable
     );
   }
 
   private mustNotBeRejectedValidator(): () => void {
     return () => {
-      if (this.errorMessage === 'Auth.form.error.user.not-exist') {
+      if (this.errorMessage === AuthError.EmailNotFound) {
         this.f.email.setErrors({ mustNotBeRejected: true });
       } else if (this.errorMessage !== '') {
         this.snackbarService.open(this.errorMessage, 'warn');

@@ -1,4 +1,5 @@
 {
+  "typescript.preferences.importModuleSpecifier": "relative",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "stylelint.validate": ["scss"],
   "editor.formatOnSave": true,

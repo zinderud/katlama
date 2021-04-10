@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -9,8 +10,9 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ThemeService } from '../../theme.service';
-import { User, UserService } from '../../user.service';
+import { Account } from '../../models/user.model';
+import { ThemeService } from '../../services/theme.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-layout-settings',
@@ -19,14 +21,15 @@ import { User, UserService } from '../../user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutSettingsComponent implements OnInit {
-  @Input() user?: User;
+  @Input() account?: Account;
   isDarkThemeToggled = false;
 
   constructor(
     @Inject(LOCALE_ID) readonly localeId: string,
     private readonly themeService: ThemeService,
     private readonly userService: UserService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -36,12 +39,13 @@ export class LayoutSettingsComponent implements OnInit {
   async onImportImage($event: Event | DataTransfer): Promise<void> {
     const selectedNewImage = await this.getFileFromEvent($event);
     this.userService.update({
-      ...(this.user as User),
+      ...(this.account as Account),
       avatar: selectedNewImage,
     });
+    this.changeDetectorRef.markForCheck();
   }
 
-  onSignout(): void {
+  onLogOut(): void {
     this.userService.delete();
   }
 

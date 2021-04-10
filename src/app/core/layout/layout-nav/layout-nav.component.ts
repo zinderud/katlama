@@ -6,8 +6,7 @@ import {
 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
-import { User } from '../../user.service';
-import { Destination } from '../layout.component';
+import { Account } from '../../models/user.model';
 
 @Component({
   selector: 'app-layout-nav',
@@ -16,10 +15,10 @@ import { Destination } from '../layout.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutNavComponent implements OnInit {
-  @Input() sidenav!: MatSidenav;
+  @Input() sidenav?: MatSidenav;
   @Input() appTitle?: string;
-  @Input() user?: User;
-  @Input() destinations?: Destination[];
+  @Input() account?: Account;
+  @Input() destinations?: { path: string; icon: string; name: string }[];
 
   ngOnInit(): void {}
 

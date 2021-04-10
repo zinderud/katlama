@@ -6,6 +6,15 @@
   }
 }
 
+.mat-form-field {
+  // prevent mobile browsers to zoom on form field focus
+  font-size: 16px !important;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
 .icon-before {
   mat-icon {
     padding: 0 5px 0 0;

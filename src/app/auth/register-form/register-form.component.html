@@ -1,0 +1,136 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" color="accent" class="form-field">
+    <mat-label i18n>First name</mat-label>
+    <input
+      matInput
+      formControlName="firstName"
+      color="primary"
+      autocomplete="given-name"
+      required
+    />
+    <mat-error *ngIf="f.firstName?.errors?.required" i18n
+      >You must fill in this field</mat-error
+    >
+    <mat-error *ngIf="f.firstName?.errors?.pattern" i18n
+      >Must contain 2-50 alphanumeric characters</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" class="form-field">
+    <mat-label i18n>Last name</mat-label>
+    <input
+      matInput
+      formControlName="lastName"
+      color="primary"
+      autocomplete="family-name"
+      required
+    />
+    <mat-error *ngIf="f.lastName?.errors?.required" i18n
+      >You must fill in this field</mat-error
+    >
+    <mat-error *ngIf="f.lastName?.errors?.pattern" i18n
+      >Must contain 2-50 alphanumeric characters</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" class="form-field">
+    <mat-label i18n>Email address</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      color="primary"
+      autocomplete="email"
+      type="email"
+      required
+    />
+    <mat-error *ngIf="f.email?.errors?.required" i18n
+      >You must fill in this field</mat-error
+    >
+    <mat-error *ngIf="f.email?.errors?.email" i18n>Not a valid email</mat-error>
+    <mat-error *ngIf="f.email?.errors?.mustNotBeRejected" i18n
+      >Email is already taken</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" class="form-field">
+    <input
+      matInput
+      formControlName="password"
+      id="new-password"
+      autocomplete="new-password"
+      [type]="isPasswordHidden ? 'password' : 'text'"
+      required
+    />
+    <mat-label i18n>Password</mat-label>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="isPasswordHidden = !isPasswordHidden"
+      [attr.aria-label]="'isPasswordHidden password'"
+      [attr.aria-pressed]="isPasswordHidden"
+      i18n-aria-label
+      aria-label="Toggle password visibility"
+    >
+      <mat-icon>{{
+        isPasswordHidden ? 'visibility_off' : 'visibility'
+      }}</mat-icon>
+    </button>
+    <mat-error *ngIf="f.password?.errors?.required" i18n
+      >You must fill in this field</mat-error
+    >
+    <mat-error *ngIf="f.password?.errors?.pattern" i18n
+      >Must contain 8+ characters</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" class="form-field">
+    <input
+      matInput
+      formControlName="confirmPassword"
+      [type]="isPasswordHidden ? 'password' : 'text'"
+      required
+    />
+    <mat-label i18n>Confirm password</mat-label>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="isPasswordHidden = !isPasswordHidden"
+      [attr.aria-label]="'isPasswordHidden password'"
+      [attr.aria-pressed]="isPasswordHidden"
+      i18n-aria-label
+      aria-label="Toggle password visibility"
+    >
+      <mat-icon>
+        {{ isPasswordHidden ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+    </button>
+    <mat-error *ngIf="f.confirmPassword?.errors?.mustMatch" i18n
+      >Passwords doesn't match</mat-error
+    >
+    <mat-error *ngIf="f.confirmPassword?.errors?.required" i18n
+      >You must fill in this field
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-group mt-20">
+    <mat-progress-bar
+      *ngIf="isLoading"
+      mode="indeterminate"
+      color="accent"
+    ></mat-progress-bar>
+    <span class="fill-remaining-space"></span>
+    <button
+      *ngIf="!isLoading"
+      [disabled]="!formGroup.valid"
+      mat-raised-button
+      class="icon-after rounded"
+      color="accent"
+      type="submit"
+    >
+      <span i18n>Submit</span>
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</form>

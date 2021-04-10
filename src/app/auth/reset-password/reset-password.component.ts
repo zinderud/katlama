@@ -11,12 +11,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { SnackbarService } from 'src/app/core/snackbar.service';
 
+import { SnackbarService } from '../../core/services/snackbar.service';
+import { mustMatchValidator } from '../../shared/validators/must-match.validator';
+import { AuthError } from '../auth.model';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -27,12 +28,14 @@ import { AuthService } from '../auth.service';
 })
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
-  isDone = false;
-  isLoading = false;
-  isProcessing = false;
-  isValidToken = false;
-  isPasswordHidden = true;
+
+  isFormSubmitted = false;
+  isResetPasswordSucceed = false;
+  isResetPasswordFailed = false;
+
+  accountId = 0;
   token = '';
+  isPasswordHidden = true;
   errorMessage = '';
   private readonly isDestroyed$ = new Subject<boolean>();
 
@@ -43,60 +46,67 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: Router,
     private readonly snackbarService: SnackbarService,
-    private readonly dialog: MatDialog,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
   ) {
     this.formGroup = this.createFormGroup('change');
   }
 
-  ngOnInit(): Subscription | undefined {
+  async ngOnInit(): Promise<void> {
+    const idFromUrl = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
+    this.accountId = idFromUrl !== '' ? parseInt(idFromUrl, 10) : 0;
     this.token = this.activatedRoute.snapshot.paramMap.get('token') ?? '';
-
-    return this.token === '' ? undefined : this.verifyToken(this.token);
   }
 
   ngOnDestroy(): void {
-    console.info(`💥 destroy: ${this.constructor.name}`);
     this.isDestroyed$.next(true);
     this.isDestroyed$.complete();
   }
 
   onSubmit(): Subscription | undefined {
-    this.isProcessing = true;
+    this.isFormSubmitted = true;
     this.formGroup.disable();
     this.isPasswordHidden = true;
 
     return this.authService
-      .setNewPassword$({
-        password: this.f.password?.value as string,
-      })
+      .resetPassword$(
+        { newPassword: this.f.password?.value as string },
+        this.accountId,
+        this.token,
+      )
       .pipe(
         finalize(() => {
-          this.isProcessing = false;
-          this.formGroup.enable();
+          this.isFormSubmitted = false;
           this.changeDetectorRef.detectChanges();
         }),
-        takeUntil(this.isDestroyed$)
+        takeUntil(this.isDestroyed$),
       )
-      .subscribe({
-        next: () => {
-          this.isDone = true;
+      .subscribe(
+        (res) => (this.isResetPasswordSucceed = true),
+        (err) => {
+          this.errorMessage = (err as Error)?.message;
+          if (
+            this.errorMessage ===
+            AuthError.NewPasswordMustBeDifferentFromCurrent
+          ) {
+            this.isFormSubmitted = false;
+            this.formGroup.enable();
+            this.f.password.setErrors({ mustNotBeRejected: true });
+            this.errorMessage = '';
+          } else {
+            this.isResetPasswordFailed = true;
+          }
         },
-        error: (err: Error) => {
-          this.errorMessage = err.message;
-        },
-      });
+      );
   }
 
   private createFormGroup(
     updateOn: 'submit' | 'change',
-    previousValue?: { [key: string]: unknown }
+    previousValue?: { [key: string]: unknown },
   ): FormGroup {
+    // tslint:disable
     const formGroup = this.formBuilder.group(
-      // tslint:disable
       {
         password: [
           null,
@@ -106,12 +116,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       },
       {
         updateOn,
-
         validators: [
+          mustMatchValidator('password', 'confirmPassword'),
           this.mustNotBeRejectedValidator(),
-          this.mustMatchValidator('password', 'confirmPassword'),
         ],
-      }
+      },
       // tslint:enable
     );
     if (previousValue !== undefined) {
@@ -121,52 +130,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     return formGroup;
   }
 
-  private verifyToken(token: string): Subscription {
-    this.isLoading = true;
-
-    return this.authService
-      .verifyResetPasswordToken$({ token })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-          this.changeDetectorRef.detectChanges();
-        }),
-        takeUntil(this.isDestroyed$)
-      )
-      .subscribe({
-        next: () => (this.isValidToken = true),
-        error: (err: Error) => (this.isValidToken = false),
-      });
-  }
-
   private mustNotBeRejectedValidator(): () => void {
     return () => {
       if (this.errorMessage !== '') {
         this.snackbarService.open(this.errorMessage, 'warn');
       }
       this.errorMessage = '';
-    };
-  }
-
-  private mustMatchValidator(
-    controlName: string,
-    matchingControlName: string
-  ): (formGroup: FormGroup) => void {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (
-        matchingControl.errors !== null &&
-        !matchingControl.errors.mustMatch
-      ) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        // tslint:disable-next-line: no-null-keyword
-        matchingControl.setErrors(null);
-      }
     };
   }
 }

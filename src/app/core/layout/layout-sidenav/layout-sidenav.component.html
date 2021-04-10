@@ -1,21 +1,21 @@
 <section class="layout-sidenav">
   <mat-nav-list class="m-0 p-0">
-    <div class="theme-primary p-15">
-      <ng-container *ngIf="user">
+    <div class="theme-primary p-16">
+      <ng-container *ngIf="account">
         <img
-          src="{{ user?.avatar }}"
+          src="{{ account?.avatar }}"
           default="profile"
-          i18n-alt="@@your-avatar"
+          i18n-alt
           alt="Your avatar"
           class="layout-sidenav-avatar"
           height="100"
           width="100"
         />
 
-        <div class="mat-h2 m-0">{{ user?.username }}</div>
-        <div class="mat-small theme-foreground-secondary-color">
-          {{ user?.email }}
-        </div>
+        <div class="mat-h2 m-0">{{ account?.firstName }}</div>
+        <div class="mat-small theme-foreground-secondary-color">{{
+          account?.email
+        }}</div>
       </ng-container>
     </div>
     <a

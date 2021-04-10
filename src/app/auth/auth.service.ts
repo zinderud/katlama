@@ -1,188 +1,115 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs/operators';
 
-import { User, UserService } from '../core/user.service';
+import { environment } from '../../environments/environment';
+import { UserService } from '../core/services/user.service';
 
-export interface SigninInput {
-  identifier: string;
-  password: string;
-}
-
-export interface SignupInput {
-  email: string;
-  username: string;
-  password: string;
-}
-
-export interface AuthOutput {
-  jwt: string;
-  user: User;
-}
-
-export interface RequestResetPasswordTokenInput {
-  email: string;
-}
-
-export interface ResetPasswordInput {
-  password: string;
-}
-
-export interface TokenInput {
-  token: string;
-}
+import {
+  confirmEmailForTest$,
+  forgotPasswordForTest$,
+  loginForTest$,
+  registerForTest$,
+  resendConfirmationEmailForTest$,
+  resetPasswordForTest$,
+} from './auth.mock';
+import {
+  LoggedInUser,
+  LoginDto,
+  RegisterDto,
+  ResetPasswordDto,
+} from './auth.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  isUsableWithoutApi = environment.apiUrl === '';
+
   constructor(
     private readonly userService: UserService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
   ) {}
 
-  signin$(input: SigninInput): Observable<AuthOutput> {
-    // // Strapi ready signin method :
-    // return this.http
-    //   .post<AuthResponse>(`${environment.apiUrl}/auth/local`, authSigninInput)
-    //   .pipe(tap((res) => this.userService.update(res.user, res.jwt)));
-
-    if (
-      input.identifier.toLowerCase() !== 'johndoe' &&
-      input.identifier.toLowerCase() !== 'johndoe@test.com'
-    ) {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.identifier.invalid')))
-      );
-    }
-    if (input.password !== 'johndoepass') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.password.invalid')))
+  login$(input: LoginDto): Observable<LoggedInUser> {
+    if (this.isUsableWithoutApi) {
+      return loginForTest$(input).pipe(
+        tap((res) => this.userService.update(res.account, res.jwt)),
       );
     }
 
-    return of({
-      jwt: 'ey...',
-      user: {
-        id: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        username: 'johndoe',
-        email: 'johndoe@test.com',
-        confirmed: true,
-      },
-    } as AuthOutput).pipe(
-      delay(2000),
-      tap((res) => this.userService.update(res.user, res.jwt))
+    return this.http
+      .post<LoggedInUser>(`${environment.apiUrl}/auth/login`, input)
+      .pipe(tap((res) => this.userService.update(res.account, res.jwt)));
+  }
+
+  register$(input: RegisterDto): Observable<LoggedInUser> {
+    if (this.isUsableWithoutApi) {
+      return registerForTest$(input).pipe(
+        tap((res) => this.userService.update(res.account, res.jwt)),
+      );
+    }
+
+    return this.http
+      .post<LoggedInUser>(`${environment.apiUrl}/auth/register`, input)
+      .pipe(tap((res) => this.userService.update(res.account, res.jwt)));
+  }
+
+  resendConfirmationEmail$(email: string): Observable<{ isSuccess: boolean }> {
+    if (this.isUsableWithoutApi) {
+      return resendConfirmationEmailForTest$();
+    }
+
+    return this.http.get<{ isSuccess: boolean }>(
+      `${environment.apiUrl}/auth/resend-confirmation-email/${email}`,
     );
   }
 
-  signup$(input: SignupInput): Observable<AuthOutput> {
-    // // Strapi ready signup method :
-    // return this.http
-    //   .post<AuthResponse>(
-    //     `${environment.apiUrl}/auth/local/register`,
-    //     authSignupInput
-    //   )
-    //   .pipe(tap((res) => this.userService.update(res.user, res.jwt)));
-
-    if (input.email.toLowerCase() === 'johndoe@test.com') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.error.email.taken')))
-      );
-    }
-    if (input.username.toLowerCase() === 'johndoe') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.error.username.taken')))
+  confirmEmail$(token: string): Observable<LoggedInUser> {
+    if (this.isUsableWithoutApi) {
+      return this.userService.account$.pipe(
+        take(1),
+        switchMap((account) => confirmEmailForTest$(account, token)),
+        tap((loggedInUser) => {
+          this.userService.update(loggedInUser.account, loggedInUser.jwt);
+        }),
       );
     }
 
-    return of({
-      jwt: 'ey...',
-      user: {
-        id: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        username: input.username,
-        email: input.email,
-        confirmed: false,
-      },
-    } as AuthOutput).pipe(
-      delay(2000),
-      tap((res) => this.userService.update(res.user, res.jwt))
+    return this.http
+      .get<LoggedInUser>(`${environment.apiUrl}/auth/confirm-email/${token}`)
+      .pipe(
+        tap((loggedInUser) =>
+          this.userService.update(loggedInUser.account, loggedInUser.jwt),
+        ),
+      );
+  }
+
+  forgotPassword$(email: string): Observable<{ isProcessed: boolean }> {
+    const lowerCaseEmail = email.toLowerCase();
+
+    if (this.isUsableWithoutApi) {
+      return forgotPasswordForTest$();
+    }
+
+    return this.http.get<{ isProcessed: boolean }>(
+      `${environment.apiUrl}/auth/forgot-password/${lowerCaseEmail}`,
     );
   }
 
-  requestConfirmEmailToken$(input: User): Observable<unknown> {
-    // // TODO: Strapi ready method
-
-    return of({} as unknown).pipe(delay(2000));
-  }
-
-  verifyConfirmEmailToken$(input: TokenInput): Observable<AuthOutput> {
-    // // TODO: Strapi ready method
-
-    if (input.token !== 'johndoeToken') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.identifier.invalid')))
-      );
+  resetPassword$(
+    input: ResetPasswordDto,
+    id: number,
+    token: string,
+  ): Observable<{ isProcessed: boolean }> {
+    if (this.isUsableWithoutApi) {
+      return resetPasswordForTest$(input, id, token);
     }
 
-    return of({
-      jwt: 'ey...',
-      user: {
-        id: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        username: 'johndoe',
-        email: 'johndoe@test.com',
-        confirmed: true,
-      },
-    } as AuthOutput).pipe(
-      delay(2000),
-      tap((res) => this.userService.update(res.user, res.jwt))
+    return this.http.post<{ isProcessed: boolean }>(
+      `${environment.apiUrl}/auth/reset-password/${id}/${token}`,
+      input,
     );
-  }
-
-  requestResetPasswordToken$(
-    input: RequestResetPasswordTokenInput
-  ): Observable<unknown> {
-    // // Strapi ready signin method :
-    // return this.http
-    //   .post<AuthResponse>(`${environment.apiUrl}/auth/forgot-password`, authForgotPasswordInput)
-
-    if (input.email.toLowerCase() !== 'johndoe@test.com') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.error.user.not-exist')))
-      );
-    }
-
-    return of({} as AuthOutput).pipe(delay(2000));
-  }
-
-  verifyResetPasswordToken$(input: TokenInput): Observable<unknown> {
-    // // TODO: Strapi ready method
-
-    if (input.token !== 'johndoe') {
-      return of(undefined).pipe(
-        delay(2000),
-        switchMap(() => throwError(new Error('Auth.form.identifier.invalid')))
-      );
-    }
-
-    return of({} as unknown).pipe(delay(2000));
-  }
-
-  setNewPassword$(input: ResetPasswordInput): Observable<unknown> {
-    // // TODO: Strapi ready method
-
-    return of({} as unknown).pipe(delay(2000));
   }
 }

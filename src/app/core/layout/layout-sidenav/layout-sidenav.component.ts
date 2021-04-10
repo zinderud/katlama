@@ -6,8 +6,7 @@ import {
 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
-import { User } from '../../user.service';
-import { Destination } from '../layout.component';
+import { Account } from '../../models/user.model';
 
 @Component({
   selector: 'app-layout-sidenav',
@@ -17,8 +16,8 @@ import { Destination } from '../layout.component';
 })
 export class LayoutSidenavComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
-  @Input() user?: User;
-  @Input() destinations?: Destination[];
+  @Input() account?: Account;
+  @Input() destinations?: { path: string; icon: string; name: string }[];
 
   ngOnInit(): void {}
 

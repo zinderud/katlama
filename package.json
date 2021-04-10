@@ -1,54 +1,48 @@
 {
-  "name": "ng-start",
-  "version": "1.4.0",
+  "name": "ng-new",
+  "version": "0.0.0",
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">= 12.0.0"
+  },
   "scripts": {
     "ng": "ng",
-    "locale": "ng xi18n --output-path src/locale --format xlf && xliffmerge --profile xliffmerge.json",
-    "start": "ng serve",
-    "start:fr": "ng serve --configuration=fr --port=4201",
     "build": "ng build",
     "build:prod": "ng build --prod",
-    "build:docs": "ng build --prod --output-path docs --base-href /ng-start/",
-    "build:stats": "ng build --stats-json",
-    "analyze": "npm run build:stats && npx webpack-bundle-analyzer dist/ng-start/en-US/stats.json",
-    "doc": "compodoc -p tsconfig.base.json -s -o -d ./dist/ng-start/compodoc --hideGenerator --customLogo ./src/assets/icons/icon-128x128.png",
-    "lighthouse": "npx lighthouse-badges --urls https://miaborde.github.io/ng-start/en-US/ -o ./docs",
+    "build:docs": "ng build --prod --output-path docs --base-href /ng-new/",
+    "start": "ng serve",
+    "start:fr": "ng serve --configuration=fr --port=4201",
+    "lint": "ng lint -- --fix",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "format": "prettier --write '**/*.{ts,js,html,scss,json,yaml,yml,md}'",
-    "gc": "git-cz",
-    "release": "standard-version --commitAll",
-    "release:major": "npm run release -- --release-as major",
-    "release:minor": "npm run release -- --release-as minor",
-    "release:patch": "npm run release -- --release-as patch",
-    "container": "docker stop ng-start || true && docker build -t ng-start . && docker run --rm --name ng-start -d -p 80:80 -p 443:443 ng-start"
+    "test:e2e": "ng e2e",
+    "docker:prod": "docker run -d -p 80:80 -p 443:443 --name ng-new ng-new",
+    "docker:build:prod": "docker build -t ng-new .",
+    "cz": "cz",
+    "doc": "compodoc -p tsconfig.base.json -s -o -d ./compodoc --hideGenerator",
+    "locale": "ng extract-i18n --output-path src/locale --format xlf && xliffmerge --profile xliffmerge.json",
+    "analyze": "ng build --prod --source-map && npx source-map-explorer dist/ng-new/en-US/main.*.js",
+    "release": "standard-version --commitAll --releaseCommitMessageFormat \"release: v{{currentTag}}\"",
+    "release:alpha": "standard-version --prerelease alpha --commitAll --releaseCommitMessageFormat \"release: v{{currentTag}}\""
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "standard-version": {
-    "scripts": {
-      "postbump": "npm run build:docs && git add docs"
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.json"
     }
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "ng lint"
+      "commit-msg": "cz-customizable-ghooks",
+      "pre-commit": "ng lint && lint-staged"
     }
   },
   "lint-staged": {
     "*.scss": "stylelint --fix --max-warnings 0",
-    "*.{ts,js,html,scss,json,yaml,yml,md}": "prettier --write"
+    "**/*.{ts,tsx,js,jsx,vue,flow,gql,graphql,html,scss,css,less,json,yaml,yml,md}": "prettier --write"
   },
   "stylelint": {
     "extends": [
@@ -63,57 +57,60 @@
       "no-empty-source": null
     }
   },
-  "private": true,
+  "standard-version": {
+    "scripts": {
+      "postbump": "npm run build:docs && git add docs"
+    }
+  },
   "dependencies": {
-    "@angular/animations": "~10.0.0",
-    "@angular/cdk": "^10.1.3",
-    "@angular/common": "~10.0.0",
-    "@angular/compiler": "~10.0.0",
-    "@angular/core": "~10.0.0",
-    "@angular/forms": "~10.0.0",
-    "@angular/localize": "^10.0.9",
-    "@angular/material": "^10.1.3",
-    "@angular/platform-browser": "~10.0.0",
-    "@angular/platform-browser-dynamic": "~10.0.0",
-    "@angular/router": "~10.0.0",
-    "@angular/service-worker": "~10.0.0",
+    "@angular/animations": "^11.0.7",
+    "@angular/cdk": "^11.0.3",
+    "@angular/common": "^11.0.7",
+    "@angular/compiler": "^11.0.7",
+    "@angular/core": "^11.0.7",
+    "@angular/forms": "^11.0.7",
+    "@angular/localize": "^11.0.7",
+    "@angular/material": "^11.0.3",
+    "@angular/platform-browser": "^11.0.7",
+    "@angular/platform-browser-dynamic": "^11.0.7",
+    "@angular/router": "^11.0.7",
+    "@angular/service-worker": "^11.0.7",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^10.0.0",
-    "@angular-devkit/build-angular": "~0.1000.0",
-    "@angular/cli": "~10.0.0",
-    "@angular/compiler-cli": "~10.0.0",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@types/jasmine": "~3.5.0",
+    "@angular-devkit/build-angular": "^0.1100.6",
+    "@angular/cli": "^11.0.6",
+    "@angular/compiler-cli": "^11.0.7",
+    "@compodoc/compodoc": "^1.1.11",
+    "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^6.0.0-next.1",
-    "commitizen": "^4.2.1",
-    "cz-conventional-changelog": "^3.2.0",
-    "husky": "^4.2.5",
-    "jasmine-core": "~3.5.0",
+    "@types/node": "^12.19.12",
+    "codelyzer": "^6.0.0",
+    "commitizen": "^4.2.2",
+    "cz-customizable": "^6.3.0",
+    "cz-customizable-ghooks": "^2.0.0",
+    "husky": "^4.3.7",
+    "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
+    "karma": "~5.1.1",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~3.3.0",
+    "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "lint-staged": "^10.2.11",
+    "lint-staged": "^10.5.3",
     "ngx-i18nsupport": "^0.17.1",
     "prettier": "2.0.5",
     "protractor": "~7.0.0",
-    "rxjs-tslint-rules": "^4.34.0",
-    "standard-version": "^8.0.2",
-    "stylelint": "^13.6.1",
-    "stylelint-config-sass-guidelines": "^7.0.0",
+    "rxjs-tslint-rules": "^4.34.7",
+    "standard-version": "^9.1.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-etc": "^1.13.1",
-    "typescript": "~3.9.5"
+    "tslint-etc": "^1.13.9",
+    "typescript": "~4.0.5"
   }
 }

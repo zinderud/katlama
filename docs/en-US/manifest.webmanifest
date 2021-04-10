@@ -1,6 +1,7 @@
 {
-  "name": "ng-start",
-  "short_name": "ng-start",
+  "name": "ng-new",
+  "short_name": "ng-new",
+  "description": "Angular progressive web app starter.",
   "theme_color": "#212121",
   "background_color": "#212121",
   "display": "standalone",

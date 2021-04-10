@@ -17,7 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ImageDefaultDirective } from './image-default.directive';
+import { ImageDefaultDirective } from './directives/image-default.directive';
 
 const materialModules = [
   MatButtonModule,

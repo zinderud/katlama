@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1602686615961,
-  "index": "/ng-start/fr/index.html",
+  "timestamp": 1617869156361,
+  "index": "/ng-new/fr/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,16 +11,17 @@
         "ignoreVary": true
       },
       "urls": [
-        "/ng-start/fr/4.f5c1c539cd496b9a7d98.js",
-        "/ng-start/fr/5.ada5c50eaf6006d89abd.js",
-        "/ng-start/fr/6.cadddebcce96377c707b.js",
-        "/ng-start/fr/favicon.ico",
-        "/ng-start/fr/index.html",
-        "/ng-start/fr/main.3879cf6ec684ea0c1c27.js",
-        "/ng-start/fr/manifest.webmanifest",
-        "/ng-start/fr/polyfills.b777eae4f8c81f315e54.js",
-        "/ng-start/fr/runtime.c449747165fd5429ba25.js",
-        "/ng-start/fr/styles.d7e4079aa4d400c536ca.css"
+        "/ng-new/fr/4.3865e58634e81db1f4c3.js",
+        "/ng-new/fr/5.fb631a1c56a07debc288.js",
+        "/ng-new/fr/6.0950c9d1dabf308cc3dc.js",
+        "/ng-new/fr/7.37770d51f4074058077b.js",
+        "/ng-new/fr/favicon.ico",
+        "/ng-new/fr/index.html",
+        "/ng-new/fr/main.581b29011e6355b5e2e4.js",
+        "/ng-new/fr/manifest.webmanifest",
+        "/ng-new/fr/polyfills.64e4e416e3e7b4998694.js",
+        "/ng-new/fr/runtime.6213d371264063eda89a.js",
+        "/ng-new/fr/styles.05d55af93ddd0c17bec4.css"
       ],
       "patterns": []
     },
@@ -32,40 +33,41 @@
         "ignoreVary": true
       },
       "urls": [
-        "/ng-start/fr/assets/icons/icon-128x128.png",
-        "/ng-start/fr/assets/icons/icon-144x144.png",
-        "/ng-start/fr/assets/icons/icon-152x152.png",
-        "/ng-start/fr/assets/icons/icon-192x192.png",
-        "/ng-start/fr/assets/icons/icon-384x384.png",
-        "/ng-start/fr/assets/icons/icon-512x512.png",
-        "/ng-start/fr/assets/icons/icon-72x72.png",
-        "/ng-start/fr/assets/icons/icon-96x96.png",
-        "/ng-start/fr/assets/images/default_profile.webp"
+        "/ng-new/fr/assets/icons/icon-128x128.png",
+        "/ng-new/fr/assets/icons/icon-144x144.png",
+        "/ng-new/fr/assets/icons/icon-152x152.png",
+        "/ng-new/fr/assets/icons/icon-192x192.png",
+        "/ng-new/fr/assets/icons/icon-384x384.png",
+        "/ng-new/fr/assets/icons/icon-512x512.png",
+        "/ng-new/fr/assets/icons/icon-72x72.png",
+        "/ng-new/fr/assets/icons/icon-96x96.png",
+        "/ng-new/fr/assets/images/default_profile.webp"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/ng-start/fr/4.f5c1c539cd496b9a7d98.js": "8f35e6467900679b4047c1d21972ba0bf8d37e58",
-    "/ng-start/fr/5.ada5c50eaf6006d89abd.js": "2045492eeab91c33f2a589f9c1cfc2855ae81d0e",
-    "/ng-start/fr/6.cadddebcce96377c707b.js": "9a2da458d39fe617aa624ed0191200fb438b40ba",
-    "/ng-start/fr/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "/ng-start/fr/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "/ng-start/fr/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "/ng-start/fr/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "/ng-start/fr/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "/ng-start/fr/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "/ng-start/fr/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "/ng-start/fr/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "/ng-start/fr/assets/images/default_profile.webp": "5db18402d22b1ce0f9e0eb236fe162861619720f",
-    "/ng-start/fr/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/ng-start/fr/index.html": "c6b1d3c1abfc2b84d8779ded34876ff090269175",
-    "/ng-start/fr/main.3879cf6ec684ea0c1c27.js": "440ff7b665c522f8d266b0e66d28b90100f1e0e1",
-    "/ng-start/fr/manifest.webmanifest": "6e8d9e503ebf259a1ce1e88de06457722061a731",
-    "/ng-start/fr/polyfills.b777eae4f8c81f315e54.js": "353fe9f003f7bedc263232e58ff54b98aacd2b68",
-    "/ng-start/fr/runtime.c449747165fd5429ba25.js": "582096dc9cb89d664ee4909ac713b15d25d26ef1",
-    "/ng-start/fr/styles.d7e4079aa4d400c536ca.css": "77c92924cc2dfe8c51fd7bde564d488b0f25685b"
+    "/ng-new/fr/4.3865e58634e81db1f4c3.js": "3bfbb204845edf265cad66921522e143eb3a2870",
+    "/ng-new/fr/5.fb631a1c56a07debc288.js": "56e4ac2b63361ec3fc33564f6bbe8e7cb7daed2b",
+    "/ng-new/fr/6.0950c9d1dabf308cc3dc.js": "d555ab20118ef0f0c351cbfaec728be2ef93397d",
+    "/ng-new/fr/7.37770d51f4074058077b.js": "db608a18e425db22f8de397ca97a3e0c0f2f2eb1",
+    "/ng-new/fr/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/ng-new/fr/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/ng-new/fr/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/ng-new/fr/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/ng-new/fr/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/ng-new/fr/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/ng-new/fr/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/ng-new/fr/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/ng-new/fr/assets/images/default_profile.webp": "5db18402d22b1ce0f9e0eb236fe162861619720f",
+    "/ng-new/fr/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/ng-new/fr/index.html": "edab8325588613d32d41b159bafd818aad2b2ffd",
+    "/ng-new/fr/main.581b29011e6355b5e2e4.js": "1a857620538b3ca8baf9fed400a00456e7d62782",
+    "/ng-new/fr/manifest.webmanifest": "c32a42c79d98b189afbf8809ff37d2e9155bd51e",
+    "/ng-new/fr/polyfills.64e4e416e3e7b4998694.js": "93b32dc4242e22d65647a6c3410bd3c58e43775d",
+    "/ng-new/fr/runtime.6213d371264063eda89a.js": "e4c9d19580b63d91116e1d66953b686664ac73d3",
+    "/ng-new/fr/styles.05d55af93ddd0c17bec4.css": "0d9fa35f2d0593a1f14cd47b2d5963a6db9d358e"
   },
   "navigationUrls": [
     {
@@ -84,5 +86,6 @@
       "positive": false,
       "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
-  ]
+  ],
+  "navigationRequestStrategy": "performance"
 }

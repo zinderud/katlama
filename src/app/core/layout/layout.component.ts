@@ -8,17 +8,18 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
-import { ThemeService } from '../theme.service';
-import { User, UserService } from '../user.service';
+import { environment } from '../../../environments/environment';
+import { Account } from '../models/user.model';
+import { ThemeService } from '../services/theme.service';
+import { UserService } from '../services/user.service';
 
 export interface Destination {
   name: string;
   path: string;
+
   icon: string;
 }
 
@@ -37,17 +38,16 @@ export class LayoutComponent implements OnInit, AfterViewChecked, OnDestroy {
   appTitle = '';
   appDescription = '';
   destinations: Destination[] = [];
-  user: User | undefined;
+  account: Account | undefined;
   readonly appVersion = environment.version;
   readonly isUnknownUserAllowedToNavigate = true;
   private readonly isDestroyed$ = new Subject<boolean>();
 
   constructor(
+    private readonly metaService: Meta,
     private readonly themeService: ThemeService,
     private readonly titleService: Title,
-    private readonly metaService: Meta,
     private readonly userService: UserService,
-    private readonly router: Router
   ) {
     this.themeService.init();
     this.destinations = [
@@ -65,10 +65,12 @@ export class LayoutComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit(): Subscription {
-    return this.userService.user$.pipe(takeUntil(this.isDestroyed$)).subscribe({
-      next: (user) => (this.user = user),
-      error: () => (this.user = undefined),
-    });
+    return this.userService.account$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe(
+        (res) => (this.account = res),
+        (err) => (this.account = undefined),
+      );
   }
 
   ngAfterViewChecked(): void {
@@ -76,13 +78,8 @@ export class LayoutComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.info(`💥 destroy: ${this.constructor.name}`);
     this.isDestroyed$.next(true);
     this.isDestroyed$.complete();
-  }
-
-  onSignout(): void {
-    this.userService.delete();
   }
 
   trackByIndex(index: number): number {

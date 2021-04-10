@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { NotUserGuard } from '../core/not-user.guard';
-import { UserGuard } from '../core/user.guard';
+import { NotUserGuard } from '../core/guards/not-user.guard';
+import { UserGuard } from '../core/guards/user.guard';
 import { SharedModule } from '../shared/shared.module';
 
 import { AuthComponent } from './auth.component';
@@ -11,9 +11,9 @@ import { ConfirmEmailDialogComponent } from './confirm-email-dialog/confirm-emai
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ForgotPasswordDialogComponent } from './forgot-password-dialog/forgot-password-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { SigninFormComponent } from './signin-form/signin-form.component';
-import { SignupFormComponent } from './signup-form/signup-form.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent, canActivate: [NotUserGuard] },
@@ -33,7 +33,7 @@ const routes: Routes = [
     canActivate: [NotUserGuard],
   },
   {
-    path: 'reset-password/:token',
+    path: 'reset-password/:id/:token',
     component: ResetPasswordComponent,
   },
 ];
@@ -41,8 +41,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AuthComponent,
-    SigninFormComponent,
-    SignupFormComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
     ConfirmEmailDialogComponent,
     ConfirmEmailComponent,
     ForgotPasswordComponent,

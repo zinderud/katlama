@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 
+import { environment } from '../../environments/environment';
+
+import { MockUser, mockUser } from './auth.mock';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -13,6 +17,10 @@ import {
 })
 export class AuthComponent implements OnInit {
   errorMessage = '';
+  isUsableWithoutApi = environment.apiUrl === '';
+  mockUser: MockUser = mockUser;
+
+  /** Fake User to test app without running API */
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
