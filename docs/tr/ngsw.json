@@ -1,0 +1,91 @@
+{
+  "configVersion": 1,
+  "timestamp": 1618172062979,
+  "index": "/katlama/tr/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/katlama/tr/4.1b234f48ab208b731214.js",
+        "/katlama/tr/5.946ef18a3690d8be29b5.js",
+        "/katlama/tr/6.2a0dc9bd4b139da3d9d9.js",
+        "/katlama/tr/7.d2a675445b829264c965.js",
+        "/katlama/tr/favicon.ico",
+        "/katlama/tr/index.html",
+        "/katlama/tr/main.7665253d91121f9c0417.js",
+        "/katlama/tr/manifest.webmanifest",
+        "/katlama/tr/polyfills.b46f0bbaf27eb4b2c703.js",
+        "/katlama/tr/runtime.f88b8286f9396b5d322a.js",
+        "/katlama/tr/styles.11851164665781f3f527.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/katlama/tr/assets/icons/icon-128x128.png",
+        "/katlama/tr/assets/icons/icon-144x144.png",
+        "/katlama/tr/assets/icons/icon-152x152.png",
+        "/katlama/tr/assets/icons/icon-192x192.png",
+        "/katlama/tr/assets/icons/icon-384x384.png",
+        "/katlama/tr/assets/icons/icon-512x512.png",
+        "/katlama/tr/assets/icons/icon-72x72.png",
+        "/katlama/tr/assets/icons/icon-96x96.png",
+        "/katlama/tr/assets/images/default_profile.webp"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/katlama/tr/4.1b234f48ab208b731214.js": "528e4563ddfed99ba49f58dad1b2eec48ca93cec",
+    "/katlama/tr/5.946ef18a3690d8be29b5.js": "822dafb69676c03711cfc8a85196797907ee38b3",
+    "/katlama/tr/6.2a0dc9bd4b139da3d9d9.js": "b77ac6b70964ab08ac9affefe58106e47e1a6506",
+    "/katlama/tr/7.d2a675445b829264c965.js": "43dd76e12680118a710af3a037a75577bd8ea589",
+    "/katlama/tr/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/katlama/tr/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/katlama/tr/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/katlama/tr/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/katlama/tr/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/katlama/tr/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/katlama/tr/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/katlama/tr/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/katlama/tr/assets/images/default_profile.webp": "5db18402d22b1ce0f9e0eb236fe162861619720f",
+    "/katlama/tr/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/katlama/tr/index.html": "6294fa2cf218013b384d92a4e6c43bed3e3fc156",
+    "/katlama/tr/main.7665253d91121f9c0417.js": "77d785b8f182f7637efbead4f0c51006b9a77ad0",
+    "/katlama/tr/manifest.webmanifest": "599700694bd0f81ad34fe348da35b5885ba73b8c",
+    "/katlama/tr/polyfills.b46f0bbaf27eb4b2c703.js": "93b32dc4242e22d65647a6c3410bd3c58e43775d",
+    "/katlama/tr/runtime.f88b8286f9396b5d322a.js": "1bd1aa366068e41aa006f7327cb194d3bf8cfeb7",
+    "/katlama/tr/styles.11851164665781f3f527.css": "02ad6cb6d571e57efec7b5e2ad4c2bf84a40de76"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

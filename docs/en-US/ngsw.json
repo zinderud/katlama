@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1617869156350,
-  "index": "/ng-new/en-US/index.html",
+  "timestamp": 1618172062933,
+  "index": "/katlama/en-US/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,17 +11,17 @@
         "ignoreVary": true
       },
       "urls": [
-        "/ng-new/en-US/4.3865e58634e81db1f4c3.js",
-        "/ng-new/en-US/5.fb631a1c56a07debc288.js",
-        "/ng-new/en-US/6.0950c9d1dabf308cc3dc.js",
-        "/ng-new/en-US/7.37770d51f4074058077b.js",
-        "/ng-new/en-US/favicon.ico",
-        "/ng-new/en-US/index.html",
-        "/ng-new/en-US/main.581b29011e6355b5e2e4.js",
-        "/ng-new/en-US/manifest.webmanifest",
-        "/ng-new/en-US/polyfills.64e4e416e3e7b4998694.js",
-        "/ng-new/en-US/runtime.6213d371264063eda89a.js",
-        "/ng-new/en-US/styles.05d55af93ddd0c17bec4.css"
+        "/katlama/en-US/4.1b234f48ab208b731214.js",
+        "/katlama/en-US/5.946ef18a3690d8be29b5.js",
+        "/katlama/en-US/6.2a0dc9bd4b139da3d9d9.js",
+        "/katlama/en-US/7.d2a675445b829264c965.js",
+        "/katlama/en-US/favicon.ico",
+        "/katlama/en-US/index.html",
+        "/katlama/en-US/main.7665253d91121f9c0417.js",
+        "/katlama/en-US/manifest.webmanifest",
+        "/katlama/en-US/polyfills.b46f0bbaf27eb4b2c703.js",
+        "/katlama/en-US/runtime.f88b8286f9396b5d322a.js",
+        "/katlama/en-US/styles.11851164665781f3f527.css"
       ],
       "patterns": []
     },
@@ -33,41 +33,41 @@
         "ignoreVary": true
       },
       "urls": [
-        "/ng-new/en-US/assets/icons/icon-128x128.png",
-        "/ng-new/en-US/assets/icons/icon-144x144.png",
-        "/ng-new/en-US/assets/icons/icon-152x152.png",
-        "/ng-new/en-US/assets/icons/icon-192x192.png",
-        "/ng-new/en-US/assets/icons/icon-384x384.png",
-        "/ng-new/en-US/assets/icons/icon-512x512.png",
-        "/ng-new/en-US/assets/icons/icon-72x72.png",
-        "/ng-new/en-US/assets/icons/icon-96x96.png",
-        "/ng-new/en-US/assets/images/default_profile.webp"
+        "/katlama/en-US/assets/icons/icon-128x128.png",
+        "/katlama/en-US/assets/icons/icon-144x144.png",
+        "/katlama/en-US/assets/icons/icon-152x152.png",
+        "/katlama/en-US/assets/icons/icon-192x192.png",
+        "/katlama/en-US/assets/icons/icon-384x384.png",
+        "/katlama/en-US/assets/icons/icon-512x512.png",
+        "/katlama/en-US/assets/icons/icon-72x72.png",
+        "/katlama/en-US/assets/icons/icon-96x96.png",
+        "/katlama/en-US/assets/images/default_profile.webp"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/ng-new/en-US/4.3865e58634e81db1f4c3.js": "3bfbb204845edf265cad66921522e143eb3a2870",
-    "/ng-new/en-US/5.fb631a1c56a07debc288.js": "3388e7a448580c281f52b36529102f3cd9ed890b",
-    "/ng-new/en-US/6.0950c9d1dabf308cc3dc.js": "d555ab20118ef0f0c351cbfaec728be2ef93397d",
-    "/ng-new/en-US/7.37770d51f4074058077b.js": "a8707c5a12d82e7ca5e7bbe979f0e506f8321e51",
-    "/ng-new/en-US/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "/ng-new/en-US/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "/ng-new/en-US/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "/ng-new/en-US/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "/ng-new/en-US/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "/ng-new/en-US/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "/ng-new/en-US/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "/ng-new/en-US/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "/ng-new/en-US/assets/images/default_profile.webp": "5db18402d22b1ce0f9e0eb236fe162861619720f",
-    "/ng-new/en-US/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/ng-new/en-US/index.html": "9bb8d85bd39a4685a1a78a2dd2efea508a380e2a",
-    "/ng-new/en-US/main.581b29011e6355b5e2e4.js": "a8efbb24490cb123850649f340c6113ee2c2bb34",
-    "/ng-new/en-US/manifest.webmanifest": "c32a42c79d98b189afbf8809ff37d2e9155bd51e",
-    "/ng-new/en-US/polyfills.64e4e416e3e7b4998694.js": "93b32dc4242e22d65647a6c3410bd3c58e43775d",
-    "/ng-new/en-US/runtime.6213d371264063eda89a.js": "e4c9d19580b63d91116e1d66953b686664ac73d3",
-    "/ng-new/en-US/styles.05d55af93ddd0c17bec4.css": "0d9fa35f2d0593a1f14cd47b2d5963a6db9d358e"
+    "/katlama/en-US/4.1b234f48ab208b731214.js": "528e4563ddfed99ba49f58dad1b2eec48ca93cec",
+    "/katlama/en-US/5.946ef18a3690d8be29b5.js": "822dafb69676c03711cfc8a85196797907ee38b3",
+    "/katlama/en-US/6.2a0dc9bd4b139da3d9d9.js": "b77ac6b70964ab08ac9affefe58106e47e1a6506",
+    "/katlama/en-US/7.d2a675445b829264c965.js": "43dd76e12680118a710af3a037a75577bd8ea589",
+    "/katlama/en-US/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/katlama/en-US/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/katlama/en-US/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/katlama/en-US/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/katlama/en-US/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/katlama/en-US/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/katlama/en-US/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/katlama/en-US/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/katlama/en-US/assets/images/default_profile.webp": "5db18402d22b1ce0f9e0eb236fe162861619720f",
+    "/katlama/en-US/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/katlama/en-US/index.html": "566f8305fa95292394d976d7f144ee5fbe3fb568",
+    "/katlama/en-US/main.7665253d91121f9c0417.js": "d8215df0a20295e9e4a3f8e1e21a466ff6a67b91",
+    "/katlama/en-US/manifest.webmanifest": "599700694bd0f81ad34fe348da35b5885ba73b8c",
+    "/katlama/en-US/polyfills.b46f0bbaf27eb4b2c703.js": "93b32dc4242e22d65647a6c3410bd3c58e43775d",
+    "/katlama/en-US/runtime.f88b8286f9396b5d322a.js": "1bd1aa366068e41aa006f7327cb194d3bf8cfeb7",
+    "/katlama/en-US/styles.11851164665781f3f527.css": "02ad6cb6d571e57efec7b5e2ad4c2bf84a40de76"
   },
   "navigationUrls": [
     {

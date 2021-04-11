@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -20,7 +23,8 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "fr": "src/locale/messages.fr.xlf"
+          "fr": "src/locale/messages.fr.xlf",
+          "tr": "src/locale/messages.tr.xlf"
         }
       },
       "architect": {
@@ -78,6 +82,9 @@
             },
             "fr": {
               "localize": ["fr"]
+            },
+            "tr": {
+              "localize": ["tr"]
             }
           }
         },
@@ -92,6 +99,9 @@
             },
             "fr": {
               "browserTarget": "katlama:build:fr"
+            },
+            "tr": {
+              "browserTarget": "katlama:build:tr"
             }
           }
         },
