@@ -1,16 +1,4 @@
-<div align="center">
-<p><img src="https://angular.io/assets/images/logos/angular/angular.svg" height="152"></p>
-
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Conventional Changelog](https://img.shields.io/badge/changelog-conventional-brightgreen.svg)](http://conventional-changelog.github.io)
-[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-
-![angular version](https://img.shields.io/github/package-json/dependency-version/miaborde/katlama/@angular/core?label=angular&logo=angular)
-
-[demo (en-US)](https://miaborde.github.io/katlama/en-US) - [demo (fr)](https://miaborde.github.io/katlama/fr) - [changelog](./CHANGELOG.md)
-
-</div>
+ 
 
 ## Run it in development
 
@@ -26,7 +14,7 @@ npm i
 # run in development mode, default language
 npm run start
 # run in development mode, in french
-npm run start:fr
+npm run start:tr
 ```
 
 ### VSCode debugger
