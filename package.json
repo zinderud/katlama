@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "author": "",
   "license": "MIT",
- 
- 
   "scripts": {
     "ng": "ng",
     "build": "ng build",
@@ -95,7 +93,7 @@
     "skyid": "^0.0.5",
     "skynet-js": "^2.9.0",
     "tslib": "^2.0.3",
-    "uuid": "^8.3.1" 
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1100.6",
@@ -109,7 +107,7 @@
     "commitizen": "^4.2.2",
     "cz-customizable": "^6.3.0",
     "cz-customizable-ghooks": "^2.0.0",
-    "husky": "6.0.0",
+    "husky": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.1.1",
