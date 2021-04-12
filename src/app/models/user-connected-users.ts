@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 export const USER_CONNECTED_USERS_KEY = new InjectionToken('user-connected-users-key');
-export const ACCOUNT_PUBLIC_KEY = new InjectionToken('account-public-key');
+export const KATLAMA_ACCOUNT_PUBLIC_KEY = new InjectionToken('katlama-account-public-key');
 
 /*
     Storing the public key of the connected user allows to access him/her
