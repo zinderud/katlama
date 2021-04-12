@@ -10,12 +10,12 @@ import { APP_NAME } from './tokens/app-name.token';
 import { MarkdownEditorModule } from './modules/markdown-editor/markdown-editor.module';
 import { USER_DATA_KEY } from './models/user-data';
 import { USER_ORIGAMI_KEY_PREFIX } from './models/user-origami';
-import { USER_CONNECTED_USERS_KEY, ACCOUNT_PUBLIC_KEY } from './models/user-connected-users';
+import { USER_CONNECTED_USERS_KEY, KATLAMA_ACCOUNT_PUBLIC_KEY } from './models/user-connected-users';
 import { USER_SHARED_ORIGAMI_KEY } from './models/user-shared-origami';
 import { USER_PUBLIC_ORIGAMI_KEY } from './models/user-public-origami';
 import { SKYDB_CACHED_USERS_KEY } from './models/users-cache';
 import { PORTAL } from './tokens/portal.token';
-import { STREAM_ORIGAMI_KEY } from './models/stream-origami';
+import { STREAM_ORIGAMI_KEYS } from './models/stream-origami';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
@@ -55,13 +55,14 @@ export const routes: Routes = [
     { provide: USER_PUBLIC_ORIGAMI_KEY, useValue: 'SKYBRAIN__USER_PUBLIC_ORIGAMI' },
     { provide: USER_SHARED_ORIGAMI_KEY, useValue: 'SKYBRAIN__USER_SHARED_ORIGAMI' },
     { provide: USER_CONNECTED_USERS_KEY, useValue: 'SKYBRAIN__USER_FOLLOWS' },
-    { provide: ACCOUNT_PUBLIC_KEY, useValue: 'key--------------' },
+    { provide: KATLAMA_ACCOUNT_PUBLIC_KEY, useValue: 'key--------------' },
     { provide: APP_NAME, useValue: 'katlama' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: SKYDB_CACHED_USERS_KEY, useValue: 'SKYDB_CACHED_USERS' },
-    { provide: STREAM_ORIGAMI_KEY, useValue: 'STREAM_ORIGAMI' },
+    { provide: STREAM_ORIGAMI_KEYS, useValue: 'STREAM_ORIGAMI' },
     { provide: PORTAL, useValue: 'https://origami.hns.siasky.net' },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule { }
