@@ -356,7 +356,7 @@ export class ApiService {
     });
   }
 
-  public async getPublicorigami({ publicKey }: Partial<UserKeys>): Promise<UserPublicOrigami[]> {
+  public async getPublicOrigami({ publicKey }: Partial<UserKeys>): Promise<UserPublicOrigami[]> {
     let response;
     try {
       response = await this.skynetClient.db.getJSON(
@@ -384,7 +384,7 @@ export class ApiService {
   }
 
   public async getPublicKatlama({ id, publicKey }: { id: string } & Partial<UserKeys>): Promise<UserPublicOrigami> {
-    const publicorigami = await this.getPublicorigami({ publicKey });
+    const publicorigami = await this.getPublicOrigami({ publicKey });
     const found = publicorigami.find((m) => m.origami.id === id);
     if (found === undefined) {
       throw new Error(
@@ -396,7 +396,7 @@ export class ApiService {
   }
 
   private async deleteFromPublicorigami({ id, publicKey, privateKey }: { id: string } & Partial<UserKeys>): Promise<void> {
-    let publicorigami = await this.getPublicorigami({ publicKey });
+    let publicorigami = await this.getPublicOrigami({ publicKey });
     const foundIndex = publicorigami.findIndex((pm) => pm.origami.id && pm.origami.id === id);
     if (foundIndex === -1) {
       return; // already deleted
@@ -425,8 +425,8 @@ export class ApiService {
   }
 
   private async deleteFromSharedorigami({ id, publicKey, privateKey }: { id: string } & Partial<UserKeys>): Promise<void> {
-    const sharedorigami = await this.getSharedorigami({ publicKey });
-    const filteredSharedorigami = sharedorigami.filter((m) => m.katlamaId.search(id) === -1);
+    const sharedorigami = await this.getSharedOrigami({ publicKey });
+    const filteredSharedorigami = sharedorigami.filter((m) => m.OrigamiId.search(id) === -1);
 
     if (filteredSharedorigami.length === sharedorigami.length) {
       return; // no elements to unshare
@@ -476,7 +476,7 @@ export class ApiService {
       throw new Error('Could not find katlama to make them public');
     }
 
-    const publicorigami = await this.getPublicorigami({ publicKey });
+    const publicorigami = await this.getPublicOrigami({ publicKey });
     const foundIndex = publicorigami.findIndex((pm) => pm.origami.id && pm.origami.id === id);
     if (foundIndex > -1) {
       return;
@@ -619,13 +619,13 @@ export class ApiService {
   public async getPublicOrigamiOfConnectedUsers({ connectedUsers }: { connectedUsers: ConnectedUser[] }): Promise<UsersPublicOrigami> {
     const connectedUsersOrigami: UsersPublicOrigami = {};
     for (const fu of connectedUsers) {
-      const connectedUserPublicOrigami: UsersPublicOrigami[] = await this.getPublicOrigami({ publicKey: fu.publicKey });
+      const connectedUserPublicOrigami: UserPublicOrigami[] = await this.getPublicOrigami({ publicKey: fu.publicKey });
       connectedUsersOrigami[fu.publicKey] = connectedUserPublicOrigami;
     }
     return connectedUsersOrigami;
   }
 
-  private async getSharedorigami({ publicKey }: Partial<UserKeys>): Promise<UserSharedOrigami[]> {
+  private async getSharedOrigami({ publicKey }: Partial<UserKeys>): Promise<UserSharedOrigami[]> {
     let response;
     try {
       response = await this.skynetClient.db.getJSON(
@@ -657,7 +657,7 @@ export class ApiService {
       return found.shareLink;
     }
 
-    const sharedorigami = await this.getSharedorigami({ publicKey });
+    const sharedorigami = await this.getSharedOrigami({ publicKey });
     const uniqueEncryptionKey = genKeyPairAndSeed().privateKey;
     const encryptedKatlama = cryptoJS.AES.encrypt(JSON.stringify(found), uniqueEncryptionKey);
 
@@ -715,7 +715,7 @@ export class ApiService {
     try {
       const decodedBase64 = atob(base64Data);
       const katlamaLink = JSON.parse(decodedBase64) as UserSharedOrigamiLink;
-      const sharedorigami = await this.getSharedorigami({ publicKey: katlamaLink.publicKey });
+      const sharedorigami = await this.getSharedOrigami({ publicKey: katlamaLink.publicKey });
       const found = sharedorigami.find((m) => m.sharedId && m.sharedId.search(katlamaLink.sharedId) > -1);
       if (!found) {
         throw new Error('Shared katlama not found');
@@ -910,15 +910,15 @@ export class ApiService {
       );
     }
 
-    const responseStreamorigami = response.data as StreamOrigami;
+    const responseStreamOrigami = response.data as StreamOrigamis;
 
     // TODO: create cron to do it on backend side. Lambda???
     const dayInMilliseconds = 1 * 1000 * 60 * 60 * 24 * 10;
-    if (responseStreamorigami) {
-      if (Date.now() - new Date(responseStreamorigami.lastProcessDate).getTime() > dayInMilliseconds) {
+    if (responseStreamOrigami) {
+      if (Date.now() - new Date(responseStreamOrigami.lastProcessDate).getTime() > dayInMilliseconds) {
         return this.processStreamorigami();
       }
-      return responseStreamorigami.origami;
+      return responseStreamOrigami.origami;
     }
 
     return [];
@@ -929,7 +929,7 @@ export class ApiService {
     let origami: StreamOrigami[] = []
 
     for (let skyDbCachedUserPublicKey in skyDBCachedUsers) {
-      const temporigami = await this.getPublicorigami({ publicKey: skyDbCachedUserPublicKey })
+      const temporigami = await this.getPublicOrigami({ publicKey: skyDbCachedUserPublicKey })
       if (temporigami) {
         temporigami.forEach((m) => {
           let tempKatlama: StreamOrigami = { ...m.origami, ownerPublicKey: skyDbCachedUserPublicKey }
@@ -940,7 +940,7 @@ export class ApiService {
 
     const sorted = origami.sort((a, b) => b.added.getTime() - a.added.getTime())
 
-    const processedorigami: StreamOrigami = {
+    const processedorigami: StreamOrigamis = {
       origami: sorted,
       lastProcessDate: new Date(Date.now()),
     }

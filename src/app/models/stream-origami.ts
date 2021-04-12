@@ -8,6 +8,6 @@ export interface StreamOrigami extends UserOrigami {
 }
 
 export interface StreamOrigamis {
-  ORIGAMI: StreamOrigami[];
+  origami: StreamOrigami[];
   lastProcessDate: Date;
 }
