@@ -3,7 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@a
 import { EMPTY, from, Observable, zip } from 'rxjs';
 import { map, catchError, first } from 'rxjs/operators';
 import { Origami } from '../models/origami';
-import { ACCOUNT_PUBLIC_KEY } from '../models/user-connected-users';
+import { KATLAMA_ACCOUNT_PUBLIC_KEY } from '../models/user-connected-users';
 
 import { ApiService } from './api.service';
 
@@ -16,20 +16,22 @@ export class StreamResolver implements Resolve<{
   constructor(
     private apiService: ApiService,
     private router: Router,
-    @Inject(ACCOUNT_PUBLIC_KEY) private AccountPublicKey: string) { }
+    @Inject(KATLAMA_ACCOUNT_PUBLIC_KEY) private AccountPublicKey: string) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     _: RouterStateSnapshot
   ): Observable<{ origami: Origami[] }> {
     return zip(
-      from(this.apiService.getBrainData({ publicKey: this.AccountPublicKey })), // fix not displayed user names
+      from(this.apiService.getKatlamaData({ publicKey: this.AccountPublicKey })), // fix not displayed user names
       from(this.apiService.getStreamorigami()),
     )
       .pipe(
         first(),
-        map(([brainData, publicorigami]) => {
-          const origami = publicorigami.map(mapStreamOrigamiToOrigami);
+        map(([KatlamaData, publicorigami]) => {
+
+          const origami = { ...publicorigami, KatlamaData: KatlamaData }
+
           return { origami };
         }),
         catchError(error => {

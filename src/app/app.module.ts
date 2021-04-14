@@ -16,6 +16,16 @@ import { USER_PUBLIC_ORIGAMI_KEY } from './models/user-public-origami';
 import { SKYDB_CACHED_USERS_KEY } from './models/users-cache';
 import { PORTAL } from './tokens/portal.token';
 import { STREAM_ORIGAMI_KEYS } from './models/stream-origami';
+import { SkyidConnectComponent } from './components/skyid-connect/skyid-connect.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { StreamResolver } from './services/stream.resolver';
+import { ApiService } from './services/api.service';
+import { CacheService } from './services/cache.service';
+import { PublicKatlamaResolver } from './services/public-katlama.resolver';
+import { PublicOrigamiService } from './services/public-origami.resolver';
+import { SharedOrigamiervice } from './services/shared-origami.resolver';
+
+
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
@@ -40,7 +50,11 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    UploadComponent,
+    SkyidConnectComponent
+  ],
   imports: [
     CoreModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
@@ -52,15 +66,23 @@ export const routes: Routes = [
   providers: [
     { provide: USER_DATA_KEY, useValue: 'USER_DATA' },
     { provide: USER_ORIGAMI_KEY_PREFIX, useValue: 'USER_ORIGAMI' },
-    { provide: USER_PUBLIC_ORIGAMI_KEY, useValue: 'SKYBRAIN__USER_PUBLIC_ORIGAMI' },
-    { provide: USER_SHARED_ORIGAMI_KEY, useValue: 'SKYBRAIN__USER_SHARED_ORIGAMI' },
-    { provide: USER_CONNECTED_USERS_KEY, useValue: 'SKYBRAIN__USER_FOLLOWS' },
+    { provide: USER_PUBLIC_ORIGAMI_KEY, useValue: 'KATLAMA__USER_PUBLIC_ORIGAMI' },
+    { provide: USER_SHARED_ORIGAMI_KEY, useValue: 'KATLAMA__USER_SHARED_ORIGAMI' },
+    { provide: USER_CONNECTED_USERS_KEY, useValue: 'KATLAMA__USER_FOLLOWS' },
     { provide: KATLAMA_ACCOUNT_PUBLIC_KEY, useValue: 'key--------------' },
     { provide: APP_NAME, useValue: 'katlama' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: SKYDB_CACHED_USERS_KEY, useValue: 'SKYDB_CACHED_USERS' },
     { provide: STREAM_ORIGAMI_KEYS, useValue: 'STREAM_ORIGAMI' },
     { provide: PORTAL, useValue: 'https://origami.hns.siasky.net' },
+    ApiService,
+    CacheService,
+    PublicKatlamaResolver,
+    PublicOrigamiService,
+    SharedOrigamiervice,
+    StreamResolver
+
+
   ],
 
   bootstrap: [AppComponent],
