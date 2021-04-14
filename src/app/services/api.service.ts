@@ -26,7 +26,7 @@ export class ApiService {
 
   // Cache mechanism
   private cachedUsersLocalStorageKey = "usersCache";
-  private chacheTimeout: NodeJS.Timeout = setTimeout(() => { }, 0);
+  private chacheTimeout = setTimeout(() => { }, 0);
 
   // TODO: create a backend for that!
   private publickatlamaSkyDBKey = "KEKE";
@@ -302,7 +302,10 @@ export class ApiService {
     const newKatlama = {
       id: uuidv4(),
       added: new Date(Date.now()),
-      ...katlama
+      text: katlama.text,
+      name: katlama.name,
+      tags: katlama.tags,
+
     } as UserOrigami;
 
     if (file && file instanceof File) {

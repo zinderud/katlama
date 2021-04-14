@@ -4,6 +4,7 @@ import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
 // @ts-ignore
 import * as SkyID from 'skyid';
 import { APP_NAME } from 'src/app/tokens/app-name.token';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-skyid-connect',
@@ -15,7 +16,7 @@ export class SkyidConnectComponent implements OnInit {
   logged = false;
   legacyAppName = "Skybrain";
 
-  constructor(@Inject(APP_NAME) private appName: string, private store: Store<RootState>) { }
+  constructor(@Inject(APP_NAME) private appName: string, private api: ApiService) { }
 
   ngOnInit(): void { }
 
@@ -31,10 +32,9 @@ export class SkyidConnectComponent implements OnInit {
     if (!this.skyid) {
       this.initSkyID();
     }
+    this.api.registerUser(this.skyid.seed);
 
-    this.store.dispatch(
-      UserActions.registerUser({ passphrase: this.skyid.seed })
-    );
+
   }
 
   getQueryStringValue(key: string) {
@@ -63,7 +63,8 @@ export class SkyidConnectComponent implements OnInit {
     this.skyid = new SkyID.SkyID(skyIDAppName, (message: string) => {
       switch (message) {
         case 'login_fail':
-          UserActions.registerUserFailure({ error: 'Could not login with SkyID' });
+          console.log("Could not login with SkyID")
+
           break;
         case 'login_success':
           this.connect();
