@@ -23,6 +23,7 @@ import { LayoutComponent } from './layout/layout.component';
     LayoutFooterComponent,
     LayoutSidenavComponent,
     LayoutNavComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -48,4 +49,4 @@ import { LayoutComponent } from './layout/layout.component';
     },
   ],
 })
-export class CoreModule {}
+export class CoreModule { }

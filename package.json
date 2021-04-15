@@ -9,7 +9,7 @@
     "build:prod": "ng build --prod",
     "build:docs": "ng build --prod --output-path docs --base-href /katlama/",
     "start": "ng serve",
-    "start:fr": "ng serve --configuration=fr --port=4201",
+   
     "start:tr": "ng serve --configuration=tr --port=4201",
     "lint": "ng lint -- --fix",
     "test": "ng test",
