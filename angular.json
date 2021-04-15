@@ -23,7 +23,7 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "fr": "src/locale/messages.fr.xlf",
+      
           "tr": "src/locale/messages.tr.xlf"
         }
       },
@@ -80,9 +80,7 @@
             "en-US": {
               "localize": ["en-US"]
             },
-            "fr": {
-              "localize": ["fr"]
-            },
+             
             "tr": {
               "localize": ["tr"]
             }
@@ -97,9 +95,7 @@
             "production": {
               "browserTarget": "katlama:build:production"
             },
-            "fr": {
-              "browserTarget": "katlama:build:fr"
-            },
+          
             "tr": {
               "browserTarget": "katlama:build:tr"
             }
